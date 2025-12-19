@@ -26,4 +26,20 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        IDamageable damageable = other.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.TakeDamage(damage);
+            DestroySelf();
+            return;
+        }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+        {
+            DestroySelf();
+        }
+    }
 }

@@ -1,10 +1,16 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
     public GameState CurrentState { get; private set; }
+
+    [Header("Scene Ref")]
+    [SerializeField] private GameObject enemyWaveSpawner;
+    [SerializeField] private GameObject player;
 
     private void Awake()
     {
@@ -15,6 +21,22 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
+    }
+
+    private void OnEnable()
+    {
+        if (player != null)
+        {
+            player.GetComponent<PlayerHealth>().OnPlayerDeath += GameOver;
+
+        }
+    }
+    private void OnDisable()
+    {   if(player  != null)
+        {
+            player.GetComponent<PlayerHealth>().OnPlayerDeath -= GameOver;
+
+        }
     }
 
     private void Start()
@@ -29,35 +51,55 @@ public class GameManager : MonoBehaviour
         switch (newState)
         {
             case GameState.MainMenu:
-                // Handle main menu state
+                HandleMainMenu();
                 break;
             case GameState.Playing:
-                // Handle playing state
-                break;
-            case GameState.Paused:
-                // Handle paused state
+                HandlePlaying();
                 break;
             case GameState.GameOver:   
-                // Handle game over state
+                HandleGameOver();
                 break;
 
         }
     }
 
-    public void StartGame()
+    private void HandleMainMenu()
     {
-        SetState(GameState.Playing);
+        Time.timeScale = 0f;
+        enemyWaveSpawner.SetActive(false);
+        player.SetActive(false);
+    }
+
+
+
+    private void HandlePlaying()
+    {
+        Time.timeScale = 1f;
+        
+        enemyWaveSpawner.SetActive(true);
+        player.SetActive(true);
 
     }
 
-    public void PauseGame()
+    private void HandleGameOver()
     {
-        SetState(GameState.Paused);
+        Time.timeScale = 0f;
+        enemyWaveSpawner.SetActive(false);
+    }
+
+    public void StartGame()
+    {
+        SetState(GameState.Playing);
     }
 
     public void GameOver()
     {
         SetState(GameState.GameOver);
+    }
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }
