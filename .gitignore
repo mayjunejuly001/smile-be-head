@@ -16,6 +16,6 @@
 *.pidb
 *.booproj
 *.svd
-
+*.vs/
 .DS_Store
 Thumbs.db
