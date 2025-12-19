@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ShotGun
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSingleShot
   weaponName: ShotGun
+  weaponType: 1
   fireMode: 0
   fireRate: 0.8
   bulletPrefab: {fileID: -4742369559414176529, guid: 5f0d05b59be5c364ba93522ca56b557f, type: 3}

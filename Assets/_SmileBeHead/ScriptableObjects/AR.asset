@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: AR
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSingleShot
   weaponName: Assault Rifle
+  weaponType: 2
   fireMode: 1
   fireRate: 0.1
   bulletPrefab: {fileID: -4742369559414176529, guid: 5f0d05b59be5c364ba93522ca56b557f, type: 3}

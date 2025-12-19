@@ -4,6 +4,7 @@ public class WeaponData : ScriptableObject
 {
     [Header("Weapon Data")]
     public string weaponName;
+    public WeaponType weaponType;
 
     [Header("Firing")]
     public FireMode fireMode;
