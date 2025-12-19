@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   enemyType: 0
   maxHealth: 3
-  moveSpeed: 2
+  moveSpeed: 7
   damage: 1
   stoppingDistance: 0.1
+  contactDamageInterval: 0.5

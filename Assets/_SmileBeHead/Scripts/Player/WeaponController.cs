@@ -6,9 +6,16 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private WeaponData startingWeapon;
     [SerializeField] private Transform firePoint;
 
+    private Animator aimAnimator;
+
     private IWeapon currentWeapon;
 
-    private float fireCooldown; 
+    private float fireCooldown;
+
+    private void Awake()
+    {
+        aimAnimator = firePoint.GetComponent<Animator>();
+    }
 
     private void Start()
     {
@@ -23,16 +30,22 @@ public class WeaponController : MonoBehaviour
         bool leftPressed = Mouse.current.leftButton.wasPressedThisFrame;
         bool leftHeld = Mouse.current.leftButton.isPressed;
 
-   
+        
 
         if (fireCooldown <= 0f)
         {
+            if (leftPressed)
+            {
+                Debug.Log("CLick");
+                aimAnimator.SetTrigger("Shoot");
+            }
+
             if (currentWeapon.TryFire(firePoint, leftPressed, leftHeld))
             {
                 fireCooldown = startingWeapon.fireRate;
+                
             }
 
-         
         }
     }
 
